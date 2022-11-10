@@ -5,7 +5,7 @@
     "main": "calculator.js",
     "type": "module",
     "scripts": {
-        "start": "cross-env PORT=4300 nodemon dist/calculator.js",
+        "start": "cross-env nodemon dist/calculator.js",
         "build": "tsc --watch",
         "test": "jest --watchAll --coverage",
         "test:prod": "jest --coverage",

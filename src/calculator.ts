@@ -1,6 +1,22 @@
 import http from 'http';
 import url from 'url';
 
+import { program } from 'commander';
+
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+program.option('-up, --userport <char>').option('-h, --help');
+program.parse();
+const { userport, help } = program.opts();
+console.log({ userport }, { help });
+
+if (help) {
+    console.log('-up ó --userport seguido del numero de puerto');
+}
+
+const port = (process.env.PORT as string) || 3700;
+
 const server = http.createServer(function (request, response) {
     const queryObject = url.parse(request.url as string, true).query;
 
@@ -24,6 +40,8 @@ const server = http.createServer(function (request, response) {
         response.write(`<p>${queryObject.a}-${queryObject.b}=${resta}</p>`);
         response.write(`<p>${queryObject.a}x${queryObject.b}=${mult}</p>`);
         response.write(`<p>${queryObject.a}/${queryObject.b}=${divis}</p>`);
+        response.write(`<p>${port}</p>`);
     }
 });
-server.listen(4500);
+
+server.listen(port);
